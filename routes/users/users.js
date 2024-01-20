@@ -10,6 +10,7 @@ const {
   profileCtrl,
   uploadProfilePhotoCtrl,
 } = require("../../controllers/users/users");
+const protected = require("../../middlewares/protected")
 
 const userRoutes = express.Router();
 
@@ -19,7 +20,7 @@ userRoutes.post("/login", loginCtrl);
 
 userRoutes.get("/:id", userDetailsCtrl);
 
-userRoutes.get("/profile/:id", profileCtrl);
+userRoutes.get("/profile/:id",protected, profileCtrl);
 
 userRoutes.put("/profile-photo-upload/:id", uploadProfilePhotoCtrl);
 
