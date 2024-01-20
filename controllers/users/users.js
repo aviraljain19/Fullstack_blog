@@ -1,8 +1,17 @@
+const User = require("../../models/user/User");
+
 const registerCtrl = async (req, res) => {
   try {
+    const { fullname, email, password } = req.body;
+    const userFound = await User.findOne({ email });
+    if (userFound) {
+      return res.json({ status: "Failed", message: "User already exists" });
+    }
+
+    const user = await User.create({ fullname, email, password });
     res.json({
       status: "Success",
-      user: "User Registered",
+      user: user,
     });
   } catch (error) {
     res.json(error);

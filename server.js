@@ -7,11 +7,13 @@ require("./config/dbConnect");
 
 const app = express();
 
+app.use(express.json());
+
 app.use("/api/v1/users", userRoutes);
 
-app.use("/api/v1/posts", postRoutes)
+app.use("/api/v1/posts", postRoutes);
 
-app.use("/api/v1/comments", commentRoutes)
+app.use("/api/v1/comments", commentRoutes);
 
 //server
 const PORT = process.env.PORT || 9000;
