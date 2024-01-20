@@ -6,7 +6,7 @@ const registerCtrl = async (req, res) => {
     const { fullname, email, password } = req.body;
     const userFound = await User.findOne({ email });
     if (userFound) {
-      return res.json({ status: "Failed", message: "User already exists" });
+      return res.json({ status: "Failed", data: "User already exists" });
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -18,7 +18,7 @@ const registerCtrl = async (req, res) => {
     });
     res.json({
       status: "Success",
-      user: user,
+      data: user,
     });
   } catch (error) {
     res.json(error);
@@ -27,9 +27,24 @@ const registerCtrl = async (req, res) => {
 
 const loginCtrl = async (req, res) => {
   try {
+    const { email, password } = req.body;
+    const userFound = await User.findOne({ email });
+    if (!userFound) {
+      return res.json({
+        status: "Failed",
+        data: "Invalid Credentials",
+      });
+    }
+    const userPassword = await bcrypt.compare(password, userFound.password);
+    if (!userPassword) {
+      return res.json({
+        status: "Failed",
+        data: "Invalid Credentials",
+      });
+    }
     res.json({
       status: "Success",
-      user: "User Login",
+      data: userFound,
     });
   } catch (error) {
     res.json(error);
