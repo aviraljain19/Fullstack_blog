@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const session = require("express-session");
 const userRoutes = require("./routes/users/users");
 const postRoutes = require("./routes/posts/posts");
 const commentRoutes = require("./routes/comments/comments");
@@ -9,6 +10,14 @@ require("./config/dbConnect");
 const app = express();
 
 app.use(express.json());
+
+app.use(
+  session({
+    secret: process.env.SESSION_KEY,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 app.use("/api/v1/users", userRoutes);
 

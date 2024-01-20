@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const User = require("../../models/user/User");
 const appErrHandler = require("../../utils/appErr");
+const session = require("express-session");
 
 const registerCtrl = async (req, res, next) => {
   try {
@@ -46,6 +47,9 @@ const loginCtrl = async (req, res, next) => {
     if (!userPassword) {
       return next(appErrHandler("Invalid Credentials"));
     }
+
+    req.session.userAuth = userFound._id;
+    console.log(req.session.userAuth);
     res.json({
       status: "Success",
       data: userFound,
