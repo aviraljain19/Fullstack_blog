@@ -2,7 +2,6 @@ const bcrypt = require("bcryptjs");
 const User = require("../../models/user/User");
 const appErrHandler = require("../../utils/appErr");
 
-
 const registerCtrl = async (req, res, next) => {
   try {
     const { fullname, email, password } = req.body;
@@ -65,7 +64,7 @@ const userDetailsCtrl = async (req, res, next) => {
     const user = await User.findById(userId);
     res.json({
       status: "Success",
-      data:user,
+      data: user,
     });
   } catch (error) {
     res.json(error);
@@ -78,7 +77,7 @@ const profileCtrl = async (req, res) => {
     const user = await User.findById(userId);
     res.json({
       status: "Success",
-      data:user,
+      data: user,
     });
   } catch (error) {
     res.json(error);
@@ -118,11 +117,28 @@ const updatePasswordCtrl = async (req, res) => {
   }
 };
 
-const updateUserCtrl = async (req, res) => {
+const updateUserCtrl = async (req, res, next) => {
   try {
+    const { fullname, email } = req.body;
+    if (email) {
+      const usedEmail = await User.findOne({ email });
+      if (usedEmail) {
+        return next(appErrHandler("Email already in use", 400));
+      }
+    }
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        fullname,
+        email,
+      },
+      {
+        new: true,
+      }
+    );
     res.json({
       status: "Success",
-      user: "User Update",
+      data: updatedUser,
     });
   } catch (error) {
     res.json(error);
