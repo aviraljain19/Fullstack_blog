@@ -18,9 +18,9 @@ userRoutes.post("/register", registerCtrl);
 
 userRoutes.post("/login", loginCtrl);
 
-userRoutes.get("/:id", userDetailsCtrl);
+userRoutes.get("/logout", logoutCtrl);
 
-userRoutes.get("/profile/:id",protected, profileCtrl);
+userRoutes.get("/profile",protected, profileCtrl);
 
 userRoutes.put("/profile-photo-upload/:id", uploadProfilePhotoCtrl);
 
@@ -30,6 +30,8 @@ userRoutes.put("/update-password/:id", updatePasswordCtrl);
 
 userRoutes.put("/update/:id", updateUserCtrl);
 
-userRoutes.get("/logout", logoutCtrl);
+userRoutes.get("/:id", userDetailsCtrl);
+
+
 
 module.exports = userRoutes;
