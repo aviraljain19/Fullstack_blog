@@ -108,12 +108,21 @@ const coverPhotoCtrl = async (req, res) => {
 
 const updatePasswordCtrl = async (req, res) => {
   try {
-    res.json({
-      status: "Success",
-      user: "User Password Update",
-    });
+    const {password} = req.body;
+    if(password){
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password,salt)
+      await User.findByIdAndUpdate(req.params.id,{
+        password:hashedPassword,
+      })
+      res.json({
+        status: "Success",
+        user: "Password Changed succesfully",
+      });
+    }
+    
   } catch (error) {
-    res.json(error);
+    return next(appErrHandler("Please fill the password field"));
   }
 };
 
@@ -141,7 +150,7 @@ const updateUserCtrl = async (req, res, next) => {
       data: updatedUser,
     });
   } catch (error) {
-    res.json(error);
+    return next(appErrHandler(error.message));
   }
 };
 
