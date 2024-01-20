@@ -5,6 +5,11 @@ const appErrHandler = require("../../utils/appErr");
 const registerCtrl = async (req, res, next) => {
   try {
     const { fullname, email, password } = req.body;
+
+    if (!fullname || !email || !password) {
+      return next(appErrHandler("Please fill the required fields"));
+    }
+
     const userFound = await User.findOne({ email });
     if (userFound) {
       return next(appErrHandler("User already exists"));
@@ -26,22 +31,20 @@ const registerCtrl = async (req, res, next) => {
   }
 };
 
-const loginCtrl = async (req, res) => {
+const loginCtrl = async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    if (!email || !password) {
+      return next(appErrHandler("Please fill the required fields"));
+    }
+
     const userFound = await User.findOne({ email });
     if (!userFound) {
-      return res.json({
-        status: "Failed",
-        data: "Invalid Credentials",
-      });
+      return next(appErrHandler("Invalid Credentials"));
     }
     const userPassword = await bcrypt.compare(password, userFound.password);
     if (!userPassword) {
-      return res.json({
-        status: "Failed",
-        data: "Invalid Credentials",
-      });
+      return next(appErrHandler("Invalid Credentials"));
     }
     res.json({
       status: "Success",
