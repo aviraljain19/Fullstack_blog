@@ -1,12 +1,13 @@
 const bcrypt = require("bcryptjs");
 const User = require("../../models/user/User");
+const appErrHandler = require("../../utils/appErr");
 
-const registerCtrl = async (req, res) => {
+const registerCtrl = async (req, res, next) => {
   try {
     const { fullname, email, password } = req.body;
     const userFound = await User.findOne({ email });
     if (userFound) {
-      return res.json({ status: "Failed", data: "User already exists" });
+      return next(appErrHandler("User already exists"));
     }
 
     const salt = await bcrypt.genSalt(10);
