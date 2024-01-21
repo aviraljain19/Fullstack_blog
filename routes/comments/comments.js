@@ -13,7 +13,7 @@ commentRoutes.post("/:id", protected, createCommentCtrl);
 
 commentRoutes.get("/:id", commentDetailsCtrl);
 
-commentRoutes.delete("/:id", deleteCommentCtrl);
+commentRoutes.delete("/:id",protected, deleteCommentCtrl);
 
 commentRoutes.put("/:id", updateCommentController);
 

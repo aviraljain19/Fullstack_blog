@@ -39,14 +39,19 @@ const commentDetailsCtrl = async (req, res) => {
   }
 };
 
-const deleteCommentCtrl = async (req, res) => {
+const deleteCommentCtrl = async (req, res, next) => {
   try {
+    const commentFound = await Comment.findById(req.params.id);
+    if (commentFound.user.toString() !== req.session.userAuth.toString()) {
+      return next(appErrHandler("Access denied", 403));
+    }
+    await Comment.findByIdAndDelete(req.params.id);
     res.json({
       status: "Success",
-      user: "Comment Deleted",
+      data: "Comment Deleted",
     });
   } catch (error) {
-    res.json(error);
+    return next(appErrHandler(error.message));
   }
 };
 
