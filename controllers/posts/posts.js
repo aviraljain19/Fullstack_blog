@@ -53,14 +53,18 @@ const postDetailsCtrl = async (req, res, next) => {
   }
 };
 
-const deletePostCtrl = async (req, res) => {
+const deletePostCtrl = async (req, res, next) => {
   try {
+    const postFound = await Post.findById(req.params.id);
+    if(postFound.user.toString() !== req.session.userAuth.toString()){
+      return next(appErrHandler("Access denied",403));
+    }
     res.json({
       status: "Success",
-      user: "Post Deleted",
+      data: "Post Deleted",
     });
   } catch (error) {
-    res.json(error);
+    return next(appErrHandler(error.message));
   }
 };
 
