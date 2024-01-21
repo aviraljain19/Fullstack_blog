@@ -4,8 +4,8 @@ const appErrHandler = require("../../utils/appErr");
 
 const createPostCtrl = async (req, res, next) => {
   try {
-    const { title, description, category} = req.body;
-    if(!title|| !description|| !category || !req.file){
+    const { title, description, category } = req.body;
+    if (!title || !description || !category || !req.file) {
       return next(appErrHandler("All fields are required"));
     }
     const userId = req.session.userAuth;
@@ -15,7 +15,7 @@ const createPostCtrl = async (req, res, next) => {
       description,
       category,
       user: userFound._id,
-      image:req.file.path,
+      image: req.file.path,
     });
     userFound.posts.push(createdPost._id);
     await userFound.save();
@@ -30,10 +30,10 @@ const createPostCtrl = async (req, res, next) => {
 
 const fetchPostCtrl = async (req, res, next) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find().populate("comments");
     res.json({
       status: "Success",
-      data:posts,
+      data: posts,
     });
   } catch (error) {
     return next(appErrHandler(error.message));
@@ -43,10 +43,10 @@ const fetchPostCtrl = async (req, res, next) => {
 const postDetailsCtrl = async (req, res, next) => {
   try {
     const postId = req.params.id;
-    const postFound = await Post.findById(postId)
+    const postFound = await Post.findById(postId).populate("comments");
     res.json({
       status: "Success",
-      data:postFound,
+      data: postFound,
     });
   } catch (error) {
     return next(appErrHandler(error.message));
@@ -56,10 +56,10 @@ const postDetailsCtrl = async (req, res, next) => {
 const deletePostCtrl = async (req, res, next) => {
   try {
     const postFound = await Post.findById(req.params.id);
-    if(postFound.user.toString() !== req.session.userAuth.toString()){
-      return next(appErrHandler("Access denied",403));
+    if (postFound.user.toString() !== req.session.userAuth.toString()) {
+      return next(appErrHandler("Access denied", 403));
     }
-    await Post.findByIdAndDelete(req.params.id)
+    await Post.findByIdAndDelete(req.params.id);
     res.json({
       status: "Success",
       data: "Post Deleted",
@@ -71,17 +71,23 @@ const deletePostCtrl = async (req, res, next) => {
 
 const updatePostCtrl = async (req, res, next) => {
   try {
-    const {title, description, category} = req.body
+    const { title, description, category } = req.body;
     const postFound = await Post.findById(req.params.id);
-    if(postFound.user.toString() !== req.session.userAuth.toString()){
-      return next(appErrHandler("Access denied",403));
+    if (postFound.user.toString() !== req.session.userAuth.toString()) {
+      return next(appErrHandler("Access denied", 403));
     }
-    const updatedPost = await Post.findByIdAndUpdate(req.params.id,{
-      title,
-      description,
-      category,
-      image:req.path.postImg
-    })
+    const updatedPost = await Post.findByIdAndUpdate(
+      req.params.id,
+      {
+        title,
+        description,
+        category,
+        image: req.path.postImg,
+      },
+      {
+        new: true,
+      }
+    );
     res.json({
       status: "Success",
       data: updatedPost,

@@ -74,7 +74,9 @@ const userDetailsCtrl = async (req, res, next) => {
 const profileCtrl = async (req, res, next) => {
   try {
     const userId = req.session.userAuth;
-    const user = await User.findById(userId).populate("posts");
+    const user = await User.findById(userId)
+      .populate("posts")
+      .populate("comments");
     res.json({
       status: "Success",
       data: user,

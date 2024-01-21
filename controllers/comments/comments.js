@@ -1,11 +1,30 @@
-const createCommentCtrl = async (req, res) => {
+const Post = require("../../models/post/Post");
+const User = require("../../models/user/User");
+const Comment = require("../../models/comment/Comment");
+const appErrHandler = require("../../utils/appErr");
+
+const createCommentCtrl = async (req, res, next) => {
   try {
+    const {message} = req.body;
+    if(!message){
+      return next(appErrHandler("Please enter comment"));
+    }
+    const post = await Post.findById(req.params.id);
+    const user = await User.findById(req.session.userAuth);
+    const comment = await Comment.create({
+      user: req.session.userAuth,
+      message,
+    });
+    post.comments.push(comment._id);
+    user.comments.push(comment._id);
+    post.save({ validateBeforeSave: false });
+    user.save({ validateBeforeSave: false });
     res.json({
       status: "Success",
       user: "Comments created",
     });
   } catch (error) {
-    res.json(error);
+    return next(appErrHandler(error.message));
   }
 };
 
