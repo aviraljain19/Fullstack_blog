@@ -71,7 +71,7 @@ const userDetailsCtrl = async (req, res, next) => {
   }
 };
 
-const profileCtrl = async (req, res) => {
+const profileCtrl = async (req, res, next) => {
   try {
     const userId = req.session.userAuth;
     const user = await User.findById(userId);
@@ -84,43 +84,70 @@ const profileCtrl = async (req, res) => {
   }
 };
 
-const uploadProfilePhotoCtrl = async (req, res) => {
+const uploadProfilePhotoCtrl = async (req, res, next) => {
   try {
+    const userId = req.session.userAuth;
+    const userFound = await User.findById(userId);
+    if (!userFound) {
+      return next(appErrHandler("User not found", 403));
+    }
+    await User.findByIdAndUpdate(
+      userId,
+      {
+        profileImage: req.file.path,
+      },
+      {
+        new: true,
+      }
+    );
     res.json({
       status: "Success",
-      user: "User Profile Image",
+      data: "You have sucessfully updated your profile photo",
     });
   } catch (error) {
-    res.json(error);
+    return next(appErrHandler(error.message));
   }
 };
 
-const coverPhotoCtrl = async (req, res) => {
+const coverPhotoCtrl = async (req, res, next) => {
   try {
+    const userId = req.session.userAuth;
+    const userFound = await User.findById(userId);
+    if (!userFound) {
+      return next(appErrHandler("User not found", 403));
+    }
+    await User.findByIdAndUpdate(
+      userId,
+      {
+        coverImage: req.file.path,
+      },
+      {
+        new: true,
+      }
+    );
     res.json({
       status: "Success",
-      user: "User Cover Image",
+      data: "Cover Image updated",
     });
   } catch (error) {
-    res.json(error);
+    return next(appErrHandler(error.message));
   }
 };
 
 const updatePasswordCtrl = async (req, res) => {
   try {
-    const {password} = req.body;
-    if(password){
+    const { password } = req.body;
+    if (password) {
       const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(password,salt)
-      await User.findByIdAndUpdate(req.params.id,{
-        password:hashedPassword,
-      })
+      const hashedPassword = await bcrypt.hash(password, salt);
+      await User.findByIdAndUpdate(req.params.id, {
+        password: hashedPassword,
+      });
       res.json({
         status: "Success",
         user: "Password Changed succesfully",
       });
     }
-    
   } catch (error) {
     return next(appErrHandler("Please fill the password field"));
   }
