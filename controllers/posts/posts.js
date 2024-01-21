@@ -24,29 +24,32 @@ const createPostCtrl = async (req, res, next) => {
       data: createdPost,
     });
   } catch (error) {
-    res.json(error);
+    return next(appErrHandler(error.message));
   }
 };
 
-const fetchPostCtrl = async (req, res) => {
+const fetchPostCtrl = async (req, res, next) => {
   try {
+    const posts = await Post.find();
     res.json({
       status: "Success",
-      user: "Post Fetched",
+      data:posts,
     });
   } catch (error) {
-    res.json(error);
+    return next(appErrHandler(error.message));
   }
 };
 
-const postDetailsCtrl = async (req, res) => {
+const postDetailsCtrl = async (req, res, next) => {
   try {
+    const postId = req.params.id;
+    const postFound = await Post.findById(postId)
     res.json({
       status: "Success",
-      user: "Post Details",
+      data:postFound,
     });
   } catch (error) {
-    res.json(error);
+    return next(appErrHandler(error.message));
   }
 };
 
