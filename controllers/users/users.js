@@ -27,7 +27,7 @@ const registerCtrl = async (req, res, next) => {
       data: user,
     });
   } catch (error) {
-    res.json(error);
+    return next(appErrHandler(error.message));
   }
 };
 
@@ -54,7 +54,7 @@ const loginCtrl = async (req, res, next) => {
       data: userFound,
     });
   } catch (error) {
-    res.json(error);
+    return next(appErrHandler(error.message));
   }
 };
 
@@ -67,20 +67,20 @@ const userDetailsCtrl = async (req, res, next) => {
       data: user,
     });
   } catch (error) {
-    res.json(error);
+    return next(appErrHandler(error.message));
   }
 };
 
 const profileCtrl = async (req, res, next) => {
   try {
     const userId = req.session.userAuth;
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).populate("posts");
     res.json({
       status: "Success",
       data: user,
     });
   } catch (error) {
-    res.json(error);
+    return next(appErrHandler(error.message));
   }
 };
 
