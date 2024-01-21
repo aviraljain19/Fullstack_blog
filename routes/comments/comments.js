@@ -15,6 +15,6 @@ commentRoutes.get("/:id", commentDetailsCtrl);
 
 commentRoutes.delete("/:id",protected, deleteCommentCtrl);
 
-commentRoutes.put("/:id", updateCommentController);
+commentRoutes.put("/:id",protected, updateCommentController);
 
 module.exports = commentRoutes;
