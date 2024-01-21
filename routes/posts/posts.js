@@ -21,8 +21,8 @@ postRoutes.get("", fetchPostCtrl);
 
 postRoutes.get("/:id", postDetailsCtrl);
 
-postRoutes.delete("/:id", deletePostCtrl);
+postRoutes.delete("/:id",protected, deletePostCtrl);
 
-postRoutes.put("/:id", updatePostCtrl);
+postRoutes.put("/:id",protected, upload.single('postImg'), updatePostCtrl);
 
 module.exports = postRoutes;

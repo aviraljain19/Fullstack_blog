@@ -59,6 +59,7 @@ const deletePostCtrl = async (req, res, next) => {
     if(postFound.user.toString() !== req.session.userAuth.toString()){
       return next(appErrHandler("Access denied",403));
     }
+    await Post.findByIdAndDelete(req.params.id)
     res.json({
       status: "Success",
       data: "Post Deleted",
@@ -68,14 +69,25 @@ const deletePostCtrl = async (req, res, next) => {
   }
 };
 
-const updatePostCtrl = async (req, res) => {
+const updatePostCtrl = async (req, res, next) => {
   try {
+    const {title, description, category} = req.body
+    const postFound = await Post.findById(req.params.id);
+    if(postFound.user.toString() !== req.session.userAuth.toString()){
+      return next(appErrHandler("Access denied",403));
+    }
+    const updatedPost = await Post.findByIdAndUpdate(req.params.id,{
+      title,
+      description,
+      category,
+      image:req.path.postImg
+    })
     res.json({
       status: "Success",
-      user: "Post Updated",
+      data: updatedPost,
     });
   } catch (error) {
-    res.json(error);
+    return next(appErrHandler(error.message));
   }
 };
 
