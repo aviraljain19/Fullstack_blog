@@ -38,6 +38,10 @@ userRoutes.get("/upload-cover-photo-form", (req, res) => {
   res.render("users/uploadCoverPhoto");
 });
 
+userRoutes.get("/update-user-form", (req, res) => {
+  res.render("users/updateUser");
+});
+
 userRoutes.post("/register", registerCtrl);
 
 userRoutes.post("/login", loginCtrl);

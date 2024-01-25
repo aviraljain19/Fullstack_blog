@@ -5,45 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Fontawesome -->
-    <script
-      src="https://kit.fontawesome.com/42a182743f.js"
-      crossorigin="anonymous"
-    ></script>
-    <!-- Google font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Roboto:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
+
     <link rel="stylesheet" href="/css/style.css" />
     <title>Responsive design</title>
   </head>
   <body>
     <!-- nav -->
-    <nav>
-      <div>
-        <img src="/images/logo.png" alt="logo" />
-      </div>
-
-      <ul>
-        <li>
-          <a href="#">Home</a>
-        </li>
-        <li>
-          <a href="#">Posts</a>
-        </li>
-        <li>
-          <a href="#">Login</a>
-        </li>
-        <li>
-          <a href="#">Register</a>
-        </li>
-        <li>
-          <a href="#" class="create-post-btn">New Post</a>
-        </li>
-      </ul>
-    </nav>
+    <%-include('partials/navbar.ejs')%>
     <!-- header -->
     <header>
       <div class="header-content">
@@ -152,41 +120,6 @@
       </article>
     </section>
     <!-- footer -->
-    <footer>
-      <div class="about">
-        <h1><span class="logo-text">Novotek </span> <span>Blog</span></h1>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti a
-          recusandae, molestiae incidunt
-        </p>
-        <!-- Contacts -->
-        <div class="contact">
-          <span>
-            <i class="fas fa-phone"></i>
-            + (123) 456 789
-          </span>
-          <span>
-            <i class="fas fa-envelope"></i>
-
-            <a href="mailto:support@inovotek.com"> support@inovotek.com </a>
-          </span>
-        </div>
-        <!-- socials -->
-        <div class="socials">
-          <a href="https://www.youtube.com/c/inovotek-academy">
-            <i class="fab fa-youtube"></i>
-          </a>
-          <a href="https://www.youtube.com/c/inovotek-academy">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="https://www.youtube.com/c/inovotek-academy">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="https://www.youtube.com/c/inovotek-academy">
-            <i class="fab fa-facebook"></i>
-          </a>
-        </div>
-      </div>
-    </footer>
+    <%-include('partials/footer.ejs')%>
   </body>
 </html>
