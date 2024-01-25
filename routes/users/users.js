@@ -22,6 +22,10 @@ userRoutes.get("/login", (req, res) => {
   res.render("users/login");
 });
 
+userRoutes.get("/register", (req, res) => {
+  res.render("users/register");
+});
+
 userRoutes.post("/register", registerCtrl);
 
 userRoutes.post("/login", loginCtrl);
