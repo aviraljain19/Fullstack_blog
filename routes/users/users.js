@@ -18,6 +18,10 @@ const userRoutes = express.Router();
 
 const upload = multer({ storage });
 
+userRoutes.get("/login", (req, res) => {
+  res.render("users/login");
+});
+
 userRoutes.post("/register", registerCtrl);
 
 userRoutes.post("/login", loginCtrl);
