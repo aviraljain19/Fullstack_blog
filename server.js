@@ -12,9 +12,9 @@ const app = express();
 
 app.use(express.json());
 
-app.set('view engine','ejs');
+app.set("view engine", "ejs");
 
-app.use(express.static(__dirname,+'/public'));
+app.use(express.static(__dirname + "/public"));
 
 app.use(
   session({
@@ -23,10 +23,14 @@ app.use(
     saveUninitialized: true,
     store: new MongoStore({
       mongoUrl: process.env.MONGO_URL,
-      ttl: 24*60*60,
+      ttl: 24 * 60 * 60,
     }),
   })
 );
+
+app.get("/", (req, res) => {
+  res.render("index.ejs");
+});
 
 app.use("/api/v1/users", userRoutes);
 
