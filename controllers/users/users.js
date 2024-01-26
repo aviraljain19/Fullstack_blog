@@ -38,24 +38,34 @@ const loginCtrl = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      return next(appErrHandler("Please fill the required fields"));
+      //return next(appErrHandler("Please fill the required fields"));
+      return res.render("users/login", {
+        error: "All fields are required",
+      });
     }
 
     const userFound = await User.findOne({ email });
     if (!userFound) {
-      return next(appErrHandler("Invalid Credentials"));
+      //return next(appErrHandler("Invalid Credentials"));
+      return res.render("users/login", {
+        error: "Invalid credentials",
+      });
     }
     const userPassword = await bcrypt.compare(password, userFound.password);
     if (!userPassword) {
-      return next(appErrHandler("Invalid Credentials"));
+      //return next(appErrHandler("Invalid Credentials"));
+      return res.render("users/login", {
+        error: "Invalid credentials",
+      });
     }
 
     req.session.userAuth = userFound._id;
-    console.log(req.session.userAuth);
-    res.json({
-      status: "Success",
-      data: userFound,
-    });
+    //console.log(req.session.userAuth);
+    res.redirect("/api/v1/users/profile-page");
+    // res.json({
+    //   status: "Success",
+    //   data: userFound,
+    // });
   } catch (error) {
     return next(appErrHandler(error.message));
   }
