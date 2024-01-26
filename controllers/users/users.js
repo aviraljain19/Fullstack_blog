@@ -22,10 +22,7 @@ const registerCtrl = async (req, res, next) => {
       email,
       password: hashedPassword,
     });
-    res.json({
-      status: "Success",
-      data: user,
-    });
+    res.redirect("/api/v1/users/profile-page");
   } catch (error) {
     return next(appErrHandler(error.message));
   }
