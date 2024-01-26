@@ -17,6 +17,25 @@
   </div>
 
   <ul>
+    <%if(userAuth){%>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="#">Posts</a>
+    </li>
+    <li>
+      <a href="/api/v1/users/profile-page">Profile</a>
+    </li>
+    <li>
+      <a href="#" class="create-post-btn">New Post</a>
+    </li>
+    <li>
+      <a style="background-color: red" href="#" class="create-post-btn"
+        >Log Out</a
+      >
+    </li>
+    <%}else{%>
     <li>
       <a href="/">Home</a>
     </li>
@@ -29,8 +48,6 @@
     <li>
       <a href="/api/v1/users/register">Register</a>
     </li>
-    <li>
-      <a href="#" class="create-post-btn">New Post</a>
-    </li>
+    <%}%>
   </ul>
 </nav>

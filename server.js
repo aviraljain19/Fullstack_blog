@@ -30,6 +30,15 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  if (req.session.userAuth) {
+    res.locals.userAuth = req.session.userAuth;
+  } else {
+    res.locals.userAuth = null;
+  }
+  next();
+});
+
 app.get("/", (req, res) => {
   res.render("index.ejs");
 });

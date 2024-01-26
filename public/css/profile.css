@@ -60,8 +60,8 @@ body {
   align-items: center;
   flex-direction: column;
   cursor: pointer;
-  color: #fb8500;
-  font-size: 25px;
+  color: #00fb4f;
+  font-size: 30px;
   margin-right: 10px;
 }
 
@@ -83,6 +83,7 @@ body {
   align-items: flex-start;
   flex-direction: row;
   margin-top: 20px;
+  font-size: 18px;
 }
 
 .details-wrapper {
