@@ -23,7 +23,9 @@ userRoutes.get("/login", (req, res) => {
 });
 
 userRoutes.get("/register", (req, res) => {
-  res.render("users/register");
+  res.render("users/register", {
+    error: "",
+  });
 });
 
 userRoutes.get("/profile-page", (req, res) => {

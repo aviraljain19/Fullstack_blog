@@ -7,12 +7,18 @@ const registerCtrl = async (req, res, next) => {
     const { fullname, email, password } = req.body;
 
     if (!fullname || !email || !password) {
-      return next(appErrHandler("Please fill the required fields"));
+      // return next(appErrHandler("Please fill the required fields"));
+      return res.render("users/register", {
+        error: "All fields are required",
+      });
     }
 
     const userFound = await User.findOne({ email });
     if (userFound) {
-      return next(appErrHandler("User already exists"));
+      //return next(appErrHandler("User already exists"));
+      return res.render("users/register", {
+        error: "User already exists please login",
+      });
     }
 
     const salt = await bcrypt.genSalt(10);
