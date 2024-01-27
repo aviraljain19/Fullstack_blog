@@ -4,7 +4,8 @@ const protected = (req, res, next) => {
   if (req.session.userAuth) {
     next();
   } else {
-    next(appErrHandler("Session timeout, login again"));
+    //next(appErrHandler("Session timeout, login again"));
+    res.render("users/notAuthorize");
   }
 };
 
