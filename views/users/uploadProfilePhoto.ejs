@@ -21,13 +21,19 @@
       <p>
         <!-- upload icon -->
       </p>
+      <%if(error){%>
       <small class="error">
         <i class="fas fa-exclamation-circle"></i>
-        Invalid Credentials
+        <%=error%>
       </small>
-      <form action="/login" method="POST">
+      <%}%>
+      <form
+        action="/api/v1/users/profile-photo-upload?_method=PUT"
+        method="POST"
+        enctype="multipart/form-data"
+      >
         <label for="email">Select Imgae</label>
-        <input type="file" name="image" id="image" />
+        <input type="file" name="profile" />
         <button type="submit">
           <i class="fas fa-upload"></i>
         </button>

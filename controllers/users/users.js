@@ -90,10 +90,11 @@ const profileCtrl = async (req, res, next) => {
     const user = await User.findById(userId)
       .populate("posts")
       .populate("comments");
-    res.json({
-      status: "Success",
-      data: user,
-    });
+    res.render("users/profile", { user });
+    // res.json({
+    //   status: "Success",
+    //   data: user,
+    // });
   } catch (error) {
     return next(appErrHandler(error.message));
   }
@@ -101,11 +102,19 @@ const profileCtrl = async (req, res, next) => {
 
 const uploadProfilePhotoCtrl = async (req, res, next) => {
   try {
+    if (!req.file) {
+      return res.render("users/uploadProfilePhoto", {
+        error: "Please upload image",
+      });
+    }
     const userId = req.session.userAuth;
     const userFound = await User.findById(userId);
     if (!userFound) {
-      return next(appErrHandler("User not found", 403));
+      return res.render("users/uploadProfilePhoto", {
+        error: "User not found",
+      });
     }
+
     await User.findByIdAndUpdate(
       userId,
       {
@@ -115,12 +124,13 @@ const uploadProfilePhotoCtrl = async (req, res, next) => {
         new: true,
       }
     );
-    res.json({
-      status: "Success",
-      data: "You have sucessfully updated your profile photo",
-    });
+    // res.json({
+    //   status: "Success",
+    //   data: "You have sucessfully updated your profile photo",
+    // });
+    res.redirect("/api/v1/users/profile-page");
   } catch (error) {
-    return next(appErrHandler(error.message));
+    return res.render("users/uploadProfilePhoto", { error: error.message });
   }
 };
 

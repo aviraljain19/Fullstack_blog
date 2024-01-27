@@ -33,10 +33,7 @@
 
       <!-- profile image -->
       <div class="profile-img">
-        <img
-          src="https://cdn.pixabay.com/photo/2022/09/26/04/24/swan-7479623_1280.jpg"
-          alt="profile image"
-        />
+        <img src="<%=user?.profileImage%>" alt="profile image" />
         <!-- upload profile image icon -->
         <a href="/api/v1/users/upload-profile-photo-form"
           ><i class="fas fa-camera upload-btn"></i
@@ -47,16 +44,16 @@
         <div class="details-wrapper">
           <div class="details">
             <i class="fas fa-user"></i>
-            <p>Name: John Doe</p>
+            <p>Name: <%=user?.fullname%></p>
           </div>
           <div class="details">
             <i class="fas fa-envelope"></i>
-            <p>Email: John Doe</p>
+            <p>Email: <%=user?.email%></p>
           </div>
           <!-- date joined -->
           <div class="details">
             <i class="fas fa-calendar"></i>
-            <p>Date Joined: John Doe</p>
+            <p>Date Joined: <%=user?.createdAt.toLocaleDateString()%></p>
           </div>
         </div>
       </div>
