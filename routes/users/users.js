@@ -38,9 +38,9 @@ userRoutes.get("/upload-cover-photo-form", (req, res) => {
   res.render("users/uploadCoverPhoto", { error: "" });
 });
 
-userRoutes.get("/update-user-form", (req, res) => {
-  res.render("users/updateUser");
-});
+// userRoutes.get("/update-user-form", (req, res) => {
+//   res.render("users/updateUser");
+// });
 
 userRoutes.post("/register", registerCtrl);
 
@@ -66,7 +66,7 @@ userRoutes.put(
 
 userRoutes.put("/update-password/:id", updatePasswordCtrl);
 
-userRoutes.put("/update/:id", updateUserCtrl);
+userRoutes.put("/update", updateUserCtrl);
 
 userRoutes.get("/:id", userDetailsCtrl);
 

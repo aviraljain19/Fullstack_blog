@@ -75,10 +75,11 @@ const userDetailsCtrl = async (req, res, next) => {
   try {
     const userId = req.params.id;
     const user = await User.findById(userId);
-    res.json({
-      status: "Success",
-      data: user,
-    });
+    // res.json({
+    //   status: "Success",
+    //   data: user,
+    // });
+    res.render("users/updateUser", { user, error: "" });
   } catch (error) {
     return next(appErrHandler(error.message));
   }
@@ -191,14 +192,24 @@ const updatePasswordCtrl = async (req, res) => {
 const updateUserCtrl = async (req, res, next) => {
   try {
     const { fullname, email } = req.body;
+    if (!email || !fullname) {
+      return res.render("users/updateUser", {
+        error: "Please fill all the fields",
+        user: "",
+      });
+    }
     if (email) {
       const usedEmail = await User.findOne({ email });
       if (usedEmail) {
-        return next(appErrHandler("Email already in use", 400));
+        // return next(appErrHandler("Email already in use", 400));
+        return res.render("users/updateUser", {
+          error: "Email already in use",
+          user: "",
+        });
       }
     }
     const updatedUser = await User.findByIdAndUpdate(
-      req.params.id,
+      req.session.userAuth,
       {
         fullname,
         email,
@@ -207,12 +218,14 @@ const updateUserCtrl = async (req, res, next) => {
         new: true,
       }
     );
-    res.json({
-      status: "Success",
-      data: updatedUser,
-    });
+    // res.json({
+    //   status: "Success",
+    //   data: updatedUser,
+    // });
+    res.redirect("/api/v1/users/profile-page");
   } catch (error) {
-    return next(appErrHandler(error.message));
+    //return next(appErrHandler(error.message));
+    return res.render("users/updateUser", { error: error.message, user: "" });
   }
 };
 
