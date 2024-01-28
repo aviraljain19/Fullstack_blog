@@ -30,7 +30,7 @@ const createPostCtrl = async (req, res, next) => {
 
 const fetchPostCtrl = async (req, res, next) => {
   try {
-    const posts = await Post.find().populate("comments");
+    const posts = await Post.find().populate("comments").populate("user");
     res.json({
       status: "Success",
       data: posts,

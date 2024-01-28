@@ -7,6 +7,7 @@ const userRoutes = require("./routes/users/users");
 const postRoutes = require("./routes/posts/posts");
 const commentRoutes = require("./routes/comments/comments");
 const globalErrHandler = require("./middlewares/globalHandler");
+const Post = require("./models/post/Post");
 require("./config/dbConnect");
 
 const app = express();
@@ -42,8 +43,13 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", (req, res) => {
-  res.render("index.ejs");
+app.get("/", async (req, res) => {
+  try {
+    const posts = await Post.find();
+    res.render("index.ejs", { posts });
+  } catch (error) {
+    res.render("index.ejs", { error: error.message });
+  }
 });
 
 app.use("/api/v1/users", userRoutes);
