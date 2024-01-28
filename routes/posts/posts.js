@@ -10,19 +10,22 @@ const {
 const protected = require("../../middlewares/protected");
 const storage = require("../../config/cloudinary");
 
-
 const postRoutes = express.Router();
 
-const upload = multer({storage})
+const upload = multer({ storage });
 
-postRoutes.post("",protected, upload.single('postImg'),  createPostCtrl);
+postRoutes.get("/create-post-form", (req, res) => {
+  res.render("posts/addPost", { error: "" });
+});
+
+postRoutes.post("", protected, upload.single("postImg"), createPostCtrl);
 
 postRoutes.get("", fetchPostCtrl);
 
 postRoutes.get("/:id", postDetailsCtrl);
 
-postRoutes.delete("/:id",protected, deletePostCtrl);
+postRoutes.delete("/:id", protected, deletePostCtrl);
 
-postRoutes.put("/:id",protected, upload.single('postImg'), updatePostCtrl);
+postRoutes.put("/:id", protected, upload.single("postImg"), updatePostCtrl);
 
 module.exports = postRoutes;

@@ -8,6 +8,7 @@ const postRoutes = require("./routes/posts/posts");
 const commentRoutes = require("./routes/comments/comments");
 const globalErrHandler = require("./middlewares/globalHandler");
 const Post = require("./models/post/Post");
+const { truncate } = require("./utils/helper");
 require("./config/dbConnect");
 
 const app = express();
@@ -21,6 +22,8 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 
 app.use(methodOverride("_method"));
+
+app.locals.truncate = truncate;
 
 app.use(
   session({
@@ -45,7 +48,7 @@ app.use((req, res, next) => {
 
 app.get("/", async (req, res) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find().populate("user");
     res.render("index.ejs", { posts });
   } catch (error) {
     res.render("index.ejs", { error: error.message });
