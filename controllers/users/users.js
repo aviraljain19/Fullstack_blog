@@ -173,19 +173,27 @@ const coverPhotoCtrl = async (req, res, next) => {
 const updatePasswordCtrl = async (req, res) => {
   try {
     const { password } = req.body;
+    if (!password) {
+      return res.render("users/updatePassword", {
+        error: "Please fill password",
+      });
+    }
     if (password) {
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
-      await User.findByIdAndUpdate(req.params.id, {
+      await User.findByIdAndUpdate(req.session.userAuth, {
         password: hashedPassword,
       });
-      res.json({
-        status: "Success",
-        user: "Password Changed succesfully",
-      });
+      // res.json({
+      //   status: "Success",
+      //   user: "Password Changed succesfully",
+      // });
+      res.redirect("/api/v1/users/profile-page");
     }
   } catch (error) {
-    return next(appErrHandler("Please fill the password field"));
+    return res.render("users/updatePassword", {
+      error: error.message,
+    });
   }
 };
 
