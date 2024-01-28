@@ -67,7 +67,9 @@ const loginCtrl = async (req, res, next) => {
     //   data: userFound,
     // });
   } catch (error) {
-    return next(appErrHandler(error.message));
+    return res.render("users/login", {
+      error: error.message,
+    });
   }
 };
 
@@ -81,7 +83,7 @@ const userDetailsCtrl = async (req, res, next) => {
     // });
     res.render("users/updateUser", { user, error: "" });
   } catch (error) {
-    return next(appErrHandler(error.message));
+    return res.render("users/updateUser", { error: error.message });
   }
 };
 
