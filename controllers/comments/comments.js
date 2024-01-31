@@ -47,10 +47,11 @@ const deleteCommentCtrl = async (req, res, next) => {
       return next(appErrHandler("Access denied", 403));
     }
     await Comment.findByIdAndDelete(req.params.id);
-    res.json({
-      status: "Success",
-      data: "Comment Deleted",
-    });
+    // res.json({
+    //   status: "Success",
+    //   data: "Comment Deleted",
+    // });
+    res.redirect(`/api/v1/posts/${req.query.postId}`);
   } catch (error) {
     return next(appErrHandler(error.message));
   }

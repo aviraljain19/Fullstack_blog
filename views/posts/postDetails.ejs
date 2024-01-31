@@ -76,14 +76,20 @@
             <div class="comment-body">
               <p><%=comment.message%></p>
               <!-- delete/update icon -->
-              <div class="comment-actions">
+              <%if(comment?.user?._id.toString() === userAuth.toString()){%>
+              <div class="post-details-action">
                 <a href="#" class="comment-update">
                   <i class="fas fa-edit"></i>
                 </a>
-                <a href="#" class="comment-delete">
-                  <i class="fas fa-trash-alt"></i>
-                </a>
+
+                <form
+                  action="/api/v1/comments/<%=comment?._id%>?_method=delete&postId=<%=postFound?._id%>"
+                  method="post"
+                >
+                  <button><i class="fas fa-trash-alt"></i></button>
+                </form>
               </div>
+              <%}%>
             </div>
           </div>
           <%})%>
