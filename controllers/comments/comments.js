@@ -14,6 +14,7 @@ const createCommentCtrl = async (req, res, next) => {
     const comment = await Comment.create({
       user: req.session.userAuth,
       message,
+      post: post._id,
     });
     post.comments.push(comment._id);
     user.comments.push(comment._id);
@@ -31,12 +32,19 @@ const createCommentCtrl = async (req, res, next) => {
 
 const commentDetailsCtrl = async (req, res) => {
   try {
-    res.json({
-      status: "Success",
-      user: "Comment Details",
+    const comment = await Comment.findById(req.params.id);
+    // res.json({
+    //   status: "Success",
+    //   user: "Comment Details",
+    // });
+    res.render("comments/updateComment", {
+      comment,
+      error: "",
     });
   } catch (error) {
-    res.json(error);
+    res.render("comments/updateComment", {
+      error: error.message,
+    });
   }
 };
 
@@ -76,10 +84,7 @@ const updateCommentController = async (req, res, next) => {
         new: true,
       }
     );
-    res.json({
-      status: "Success",
-      data: updatedComment,
-    });
+    res.redirect(`/api/v1/posts/${req.query.postId}`);
   } catch (error) {
     return next(appErrHandler(error.message));
   }
