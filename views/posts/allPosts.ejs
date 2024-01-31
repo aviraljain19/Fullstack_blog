@@ -4,42 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Fontawesome -->
-
     <link rel="stylesheet" href="/css/style.css" />
-    <title>Jaypee Blogs</title>
+    <title>All posts</title>
   </head>
   <body>
-    <!-- nav -->
-    <%-include('partials/navbar.ejs')%>
-    <!-- header -->
-    <header>
-      <div class="header-content">
-        <h1>You write, We read</h1>
-        <p></p>
-        <%if(userAuth){%>
-        <a href="/api/v1/posts/create-post-form">
-          <span>Create New Post</span>
-        </a>
-        <%}else{%>
-        <a href="/api/v1/users/login">
-          <span>Create New Post</span>
-        </a>
-        <%}%>
-      </div>
-    </header>
-    <!-- Latest post title -->
-
-    <div class="latest-post-title">
-      <!-- Icon -->
-      <div class="icon">
-        <i class="fas fa-book-open"></i>
-      </div>
-      <h1>Latest Posts (<%=posts?.length%>)</h1>
-      <p></p>
-    </div>
-
-    <!-- content -->
+    <%-include("../partials/navbar.ejs")%>
+    <h2 style="text-align: center; margin: 20px">All Posts</h2>
     <section class="container-flex">
       <%if(posts?.length<=0){%>
       <h2>No post found</h2>
@@ -70,7 +40,6 @@
       </article>
       <%})%> <%}%>
     </section>
-    <!-- footer -->
-    <%-include('partials/footer.ejs')%>
+    <%-include("../partials/footer.ejs")%>
   </body>
 </html>

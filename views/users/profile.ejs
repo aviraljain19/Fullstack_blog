@@ -95,7 +95,9 @@
         <div class="post-category">
           <span>Category: <%=post.category%></span>
         </div>
-        <a href="/" class="post-read-more">Continue Reading...</a>
+        <a href="/api/v1/posts/<%=post?._id%>" class="post-read-more"
+          >Continue Reading...</a
+        >
       </article>
       <%})%> <%}%>
     </section>

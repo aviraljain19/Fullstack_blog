@@ -35,10 +35,7 @@ const fetchPostCtrl = async (req, res, next) => {
   try {
     const posts = await Post.find().populate("comments");
 
-    res.json({
-      status: "Success",
-      data: posts,
-    });
+    res.render("posts/allPosts", { posts });
   } catch (error) {
     return next(appErrHandler(error.message));
   }
@@ -47,12 +44,14 @@ const fetchPostCtrl = async (req, res, next) => {
 const postDetailsCtrl = async (req, res, next) => {
   try {
     const postId = req.params.id;
-    const postFound = await Post.findById(postId).populate({
-      path: "comments",
-      populate: {
-        path: "user",
-      },
-    });
+    const postFound = await Post.findById(postId)
+      .populate({
+        path: "comments",
+        populate: {
+          path: "user",
+        },
+      })
+      .populate("user");
 
     // res.json({
     //   status: "Success",
