@@ -87,26 +87,48 @@ const updatePostCtrl = async (req, res, next) => {
     const { title, description, category } = req.body;
     const postFound = await Post.findById(req.params.id);
     if (postFound.user.toString() !== req.session.userAuth.toString()) {
-      return next(appErrHandler("Access denied", 403));
+      return res.render("posts/updatePost", {
+        error: "You are not authorized to update",
+        post: "",
+      });
     }
-    const updatedPost = await Post.findByIdAndUpdate(
-      req.params.id,
-      {
-        title,
-        description,
-        category,
-        image: req.path.postImg,
-      },
-      {
-        new: true,
-      }
-    );
-    res.json({
-      status: "Success",
-      data: updatedPost,
-    });
+    if (req.file) {
+      await Post.findByIdAndUpdate(
+        req.params.id,
+        {
+          title,
+          description,
+          category,
+          image: req.file.path,
+        },
+        {
+          new: true,
+        }
+      );
+    } else {
+      await Post.findByIdAndUpdate(
+        req.params.id,
+        {
+          title,
+          description,
+          category,
+        },
+        {
+          new: true,
+        }
+      );
+    }
+
+    res.redirect("/");
+    // res.json({
+    //   status: "Success",
+    //   data: updatedPost,
+    // });
   } catch (error) {
-    return next(appErrHandler(error.message));
+    return res.render("posts/updatePost", {
+      error: error.message,
+      post: "",
+    });
   }
 };
 

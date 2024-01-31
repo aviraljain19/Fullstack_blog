@@ -28,8 +28,9 @@
       <main>
         <article class="post-details-content">
           <img src="<%=postFound?.image%>" alt="" class="post-image" />
+          <%if(postFound?.user?._id.toString() === userAuth.toString()){%>
           <div class="post-details-action">
-            <a href="#">
+            <a href="/api/v1/posts/get-form-update/<%=postFound?._id%>">
               <i class="fas fa-edit"></i>
             </a>
             <form
@@ -39,6 +40,8 @@
               <button><i class="fas fa-trash-alt"></i></button>
             </form>
           </div>
+          <%}%>
+
           <h1 class="post-title"><%=postFound?.title%></h1>
           <p class="post-body"><%=postFound?.description%></p>
         </article>
