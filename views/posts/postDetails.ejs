@@ -28,18 +28,17 @@
       <main>
         <article class="post-details-content">
           <img src="<%=postFound?.image%>" alt="" class="post-image" />
-          <p class="post-info">
-            <!-- <span class="post-author">
-              <i class="fas fa-user"></i>
-              postFound?.user?.fullname
-            </span> -->
-            <span class="post-date">
-              <i class="far fa-calendar-alt"></i>
-              <time datetime="2020-01-01"
-                ><%=postFound?.createdAt.toLocaleDateString()%></time
-              >
-            </span>
-          </p>
+          <div class="post-details-action">
+            <a href="#">
+              <i class="fas fa-edit"></i>
+            </a>
+            <form
+              action="/api/v1/posts/<%=postFound?._id%>?_method=DELETE"
+              method="post"
+            >
+              <button><i class="fas fa-trash-alt"></i></button>
+            </form>
+          </div>
           <h1 class="post-title"><%=postFound?.title%></h1>
           <p class="post-body"><%=postFound?.description%></p>
         </article>
@@ -132,7 +131,7 @@
             adipisci eligendi nobis itaque ex? Veniam tempore itaque cumque
             fugiat iusto voluptatibus odit inventore dolorem numquam maxime,
             repellendus labore corrupti expedita?
-          </p> -->
+          </p>-->
         </div>
 
         <!-- <div class="sidebar-content">

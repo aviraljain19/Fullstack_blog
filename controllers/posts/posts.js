@@ -63,15 +63,22 @@ const deletePostCtrl = async (req, res, next) => {
   try {
     const postFound = await Post.findById(req.params.id);
     if (postFound.user.toString() !== req.session.userAuth.toString()) {
-      return next(appErrHandler("Access denied", 403));
+      return res.render("posts/postDetails", {
+        postFound,
+        error: "You are not authorized to delete this post",
+      });
     }
     await Post.findByIdAndDelete(req.params.id);
-    res.json({
-      status: "Success",
-      data: "Post Deleted",
-    });
+    res.redirect("/");
+    // res.json({
+    //   status: "Success",
+    //   data: "Post Deleted",
+    // });
   } catch (error) {
-    return next(appErrHandler(error.message));
+    return res.render("posts/postDetails", {
+      error: error.message,
+      postFound: "",
+    });
   }
 };
 
