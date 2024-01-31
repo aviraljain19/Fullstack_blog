@@ -33,7 +33,13 @@ const createPostCtrl = async (req, res, next) => {
 
 const fetchPostCtrl = async (req, res, next) => {
   try {
-    const posts = await Post.find().populate("comments").populate("user");
+    const posts = await Post.find().populate({
+      path: "comments",
+      populate: {
+        path: "users",
+      },
+    });
+
     res.json({
       status: "Success",
       data: posts,
@@ -46,9 +52,13 @@ const fetchPostCtrl = async (req, res, next) => {
 const postDetailsCtrl = async (req, res, next) => {
   try {
     const postId = req.params.id;
-    const postFound = await Post.findById(postId)
-      .populate("comments")
-      .populate("user");
+    const postFound = await Post.findById(postId).populate({
+      path: "comments",
+      populate: {
+        path: "user",
+      },
+    });
+
     // res.json({
     //   status: "Success",
     //   data: postFound,

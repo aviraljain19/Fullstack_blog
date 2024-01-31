@@ -5,8 +5,8 @@ const appErrHandler = require("../../utils/appErr");
 
 const createCommentCtrl = async (req, res, next) => {
   try {
-    const {message} = req.body;
-    if(!message){
+    const { message } = req.body;
+    if (!message) {
       return next(appErrHandler("Please enter comment"));
     }
     const post = await Post.findById(req.params.id);
@@ -19,10 +19,11 @@ const createCommentCtrl = async (req, res, next) => {
     user.comments.push(comment._id);
     post.save({ validateBeforeSave: false });
     user.save({ validateBeforeSave: false });
-    res.json({
-      status: "Success",
-      user: "Comments created",
-    });
+    // res.json({
+    //   status: "Success",
+    //   user: "Comments created",
+    // });
+    res.redirect(`/api/v1/posts/${post._id}`);
   } catch (error) {
     return next(appErrHandler(error.message));
   }
@@ -59,7 +60,7 @@ const updateCommentController = async (req, res, next) => {
   try {
     const { message } = req.body;
     const commentFound = await Comment.findById(req.params.id);
-    if(!commentFound){
+    if (!commentFound) {
       return next(appErrHandler("Comment not found"));
     }
     if (commentFound.user.toString() !== req.session.userAuth.toString()) {
@@ -68,7 +69,7 @@ const updateCommentController = async (req, res, next) => {
     const updatedComment = await Comment.findByIdAndUpdate(
       req.params.id,
       {
-        message
+        message,
       },
       {
         new: true,

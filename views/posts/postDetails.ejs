@@ -48,9 +48,9 @@
         <!-- Comment form -->
         <div class="comment-form">
           <h2>Leave a comment</h2>
-          <form action="">
+          <form action="/api/v1/comments/<%=postFound?._id%>" method="POST">
             <div class="form-group">
-              <input type="text" name="name" id="name" />
+              <input type="text" name="message" id="name" />
             </div>
             <button type="submit" class="btn">Submit</button>
           </form>
@@ -59,25 +59,22 @@
         <!-- comments -->
         <div class="comments">
           <h2>Comments</h2>
+
+          <%postFound?.comments?.forEach((comment)=>{%>
           <div class="comment">
             <div class="comment-info">
               <img
-                src="./images/logo.png"
+                src="<%=comment?.user?.profileImage%>"
                 alt=""
                 class="comment-author-image"
               />
               <div class="comment-author">
-                <h4>John Doe</h4>
-                <span>January 1, 2020</span>
+                <h4><%=comment?.user?.fullname%></h4>
+                <span><%=comment?.createdAt.toLocaleDateString()%></span>
               </div>
             </div>
             <div class="comment-body">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
-                quod, voluptatum, quia, voluptas quas voluptates quibusdam
-                voluptatibus quae quidem quos nesciunt. Quisquam, quae
-                voluptatibus. Quisquam, quae voluptatibus.
-              </p>
+              <p><%=comment.message%></p>
               <!-- delete/update icon -->
               <div class="comment-actions">
                 <a href="#" class="comment-update">
@@ -89,36 +86,7 @@
               </div>
             </div>
           </div>
-          <div class="comment">
-            <div class="comment-info">
-              <img
-                src="<%=postFound?.user?.profileImage%>"
-                alt=""
-                class="comment-author-image"
-              />
-              <div class="comment-author">
-                <h4><%=postFound?.user?.fullname%></h4>
-                <span>January 1, 2020</span>
-              </div>
-            </div>
-            <div class="comment-body">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
-                quod, voluptatum, quia, voluptas quas voluptates quibusdam
-                voluptatibus quae quidem quos nesciunt. Quisquam, quae
-                voluptatibus. Quisquam, quae voluptatibus.
-              </p>
-              <!-- delete/update icon -->
-              <div class="comment-actions">
-                <a href="#" class="comment-update">
-                  <i class="fas fa-edit"></i>
-                </a>
-                <a href="#" class="comment-delete">
-                  <i class="fas fa-trash-alt"></i>
-                </a>
-              </div>
-            </div>
-          </div>
+          <%})%>
         </div>
       </main>
       <!-- aside -->
