@@ -15,7 +15,7 @@ body {
   align-items: center;
   flex-direction: column;
 }
-.profile-container header {
+.profile-container .backgroundImg {
   padding: 20px;
   border-bottom: 1px solid #e6e6e6;
   height: 30vh;
@@ -23,6 +23,14 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   width: 100%;
+  position: relative;
+}
+
+.profile-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .profile-img img {
@@ -31,12 +39,11 @@ body {
   border-radius: 50%;
   border: 2px solid #fff;
   position: absolute;
-  margin-top: -20px;
 }
 .profile-img .fas {
   position: absolute;
-  margin-top: 30px;
-  margin-left: 80px;
+  top: 20px;
+  right: -50px;
   font-size: 20px;
   color: #fff;
   background-color: #1da1f2;
@@ -46,23 +53,26 @@ body {
 }
 
 .profile-container .icons-container {
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: flex-end;
-  height: 20vh;
+  align-items: flex-end; */
+  height: 10vh;
   margin-top: 20px;
   padding: 0 20px;
+  position: absolute;
+  top: 80px;
+  right: 0;
 }
 
 .profile-container .icons-container .fas {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
   cursor: pointer;
-  color: #00fb4f;
-  font-size: 30px;
-  margin-right: 10px;
+  color: #000000;
+  font-size: 20px;
+  margin-right: 5px;
+  margin-top: 5px;
+  background-color: white;
+  border-radius: 50%;
+  padding: 5px;
 }
 
 .personal-container {
@@ -72,8 +82,8 @@ body {
   margin-left: auto;
   margin-right: auto;
   flex-direction: column;
-  background-color: #fff;
-  width: 40%;
+  background-color: #68686886;
+  min-width: 40%;
   padding: 20px;
   margin-top: 80px;
 }
@@ -94,4 +104,80 @@ body {
 .details .fas {
   margin-right: 10px;
   color: #1da1f2;
+}
+
+.posts-title {
+  display: flex;
+  align-items: center;
+  color: white;
+  justify-content: center;
+}
+
+.posts-title h1 {
+  font-size: 30px;
+  margin-top: 20px;
+}
+
+.posts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.postContainer {
+  margin: 10px;
+  width: 95%;
+  background-color: black;
+  border-radius: 10px;
+  border: 2px solid rgb(125, 125, 125);
+  padding: 20px;
+  cursor: pointer;
+  position: relative;
+}
+
+.postContainer img {
+  width: 100%;
+  border-radius: 30px;
+  padding: 20px;
+}
+
+.postContainer h2 {
+  color: white;
+  margin-bottom: 10px;
+}
+
+.postContainer p {
+  color: rgb(184, 184, 184);
+}
+
+.postContainer a {
+  color: rgb(184, 184, 184);
+}
+
+.post-title {
+  color: white;
+  margin: 10px 0px;
+  font-size: 25px;
+}
+
+.category {
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: gray;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+@media (min-width: 760px) {
+  .postContainer {
+    width: 46%;
+  }
+}
+
+@media (min-width: 1250px) {
+  .postContainer {
+    width: 30%;
+  }
 }

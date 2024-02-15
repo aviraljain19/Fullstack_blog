@@ -16,9 +16,13 @@ const userSchema = new mongoose.Schema(
     },
     profileImage: {
       type: String,
+      default:
+        "https://res.cloudinary.com/dwmlrounk/image/upload/v1708024614/Blog-app/opmwcjhpbbcrsqtt8qo7.png",
     },
     coverImage: {
       type: String,
+      default:
+        "https://res.cloudinary.com/dwmlrounk/image/upload/v1708024824/Blog-app/isxf0zlud1vayhpnrrov.png",
     },
     posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],

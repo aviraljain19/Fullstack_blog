@@ -30,7 +30,7 @@ app.use(
     secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: true,
-    store: MongoStore.create({
+    store: new MongoStore({
       mongoUrl: process.env.MONGO_URL,
       ttl: 24 * 60 * 60,
     }),
@@ -48,7 +48,7 @@ app.use((req, res, next) => {
 
 app.get("/", async (req, res) => {
   try {
-    const posts = await Post.find().populate("user");
+    const posts = await Post.find().sort({ _id: -1 }).populate("user");
     res.render("index.ejs", { posts });
   } catch (error) {
     res.render("index.ejs", { error: error.message });

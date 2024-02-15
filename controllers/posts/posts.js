@@ -33,7 +33,7 @@ const createPostCtrl = async (req, res, next) => {
 
 const fetchPostCtrl = async (req, res, next) => {
   try {
-    const posts = await Post.find().populate("comments");
+    const posts = await Post.find().sort({ _id: -1 }).populate("comments");
 
     res.render("posts/allPosts", { posts });
   } catch (error) {

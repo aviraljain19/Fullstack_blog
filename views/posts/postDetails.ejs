@@ -43,11 +43,40 @@
           <%}%>
 
           <h1 class="post-title"><%=postFound?.title%></h1>
-          <p class="post-body"><%=postFound?.description%></p>
+          <pre class="post-body"><%=postFound?.description%></pre>
         </article>
+
+        <div class="about-me">
+          <img class="avatar" src="<%=postFound?.user?.profileImage%>" alt="" />
+
+          <h2 class="about-name"><%=postFound?.user?.fullname%></h2>
+        </div>
+
+        <!-- <div class="sidebar-content">
+            <h1 class="post-title">Start Here</h1>
+            <img src="./images/post4.jpg" alt="" class="post-image" />
+            <p class="post-info">
+              <span class="post-author">
+                <i class="fas fa-user"></i>
+                <a href="#">John Doe</a>
+              </span>
+              <span class="post-date">
+                <i class="far fa-calendar-alt"></i>
+                <time datetime="2020-01-01">January 1, 2020</time>
+              </span>
+            </p>
+            <p class="post-body">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia
+              itaque inventore culpa placeat! Cum nam optio, labore, voluptas sunt
+              quam rem cupiditate laboriosam amet reiciendis velit doloribus eum!
+              Repudiandae, odio?
+            </p>
+            <a href="/" class="post-read-more">Continue Reading...</a>
+          </div> -->
+
         <!-- Comment form -->
         <div class="comment-form">
-          <h2>Leave a comment</h2>
+          <h2>Write Comment</h2>
           <form action="/api/v1/comments/<%=postFound?._id%>" method="POST">
             <div class="form-group">
               <input type="text" name="message" id="name" />
@@ -99,43 +128,6 @@
         </div>
       </main>
       <!-- aside -->
-      <aside class="sidebar">
-        <div class="about-me">
-          <h2>Author</h2>
-          <img class="avatar" src="<%=postFound?.user?.profileImage%>" alt="" />
-
-          <h2 class="about-name"><%=postFound?.user?.fullname%></h2>
-          <!-- <small>FullStack Web Developer</small>
-          <p class="about-me-bio">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nostrum
-            adipisci eligendi nobis itaque ex? Veniam tempore itaque cumque
-            fugiat iusto voluptatibus odit inventore dolorem numquam maxime,
-            repellendus labore corrupti expedita?
-          </p>-->
-        </div>
-
-        <!-- <div class="sidebar-content">
-          <h1 class="post-title">Start Here</h1>
-          <img src="./images/post4.jpg" alt="" class="post-image" />
-          <p class="post-info">
-            <span class="post-author">
-              <i class="fas fa-user"></i>
-              <a href="#">John Doe</a>
-            </span>
-            <span class="post-date">
-              <i class="far fa-calendar-alt"></i>
-              <time datetime="2020-01-01">January 1, 2020</time>
-            </span>
-          </p>
-          <p class="post-body">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia
-            itaque inventore culpa placeat! Cum nam optio, labore, voluptas sunt
-            quam rem cupiditate laboriosam amet reiciendis velit doloribus eum!
-            Repudiandae, odio?
-          </p>
-          <a href="/" class="post-read-more">Continue Reading...</a>
-        </div> -->
-      </aside>
     </section>
     <!-- footer -->
     <%-include("../partials/footer.ejs")%>

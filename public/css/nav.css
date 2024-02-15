@@ -1,0 +1,122 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+ul {
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 0px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+header {
+  background-color: black;
+  position: static;
+  top: 0;
+  width: 100%;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em 1em;
+}
+
+.logo {
+  width: 150px;
+}
+
+.logo img {
+  max-width: 100%;
+}
+
+nav i {
+  position: relative;
+  font-size: clamp(1rem, 10vw, 3rem);
+  cursor: pointer;
+}
+
+#xIcon {
+  display: none;
+}
+
+.menu {
+  position: relative;
+}
+
+#menuItems {
+  display: none;
+  position: absolute;
+  width: 30vw;
+  padding: 1em 2em;
+  background-color: rgba(80, 80, 80, 0.8);
+  color: white;
+  left: -70px;
+  list-style: none;
+  z-index: 10;
+}
+
+#menuItems li {
+  margin-top: 0.5em;
+  font-size: 1rem;
+}
+
+#menuItems li a {
+  color: rgb(121, 157, 255);
+}
+
+#menuItems li::after {
+  content: "";
+  display: block;
+  background-color: red;
+  height: 2px;
+  width: 0%;
+  transition: 0.3s;
+}
+
+#menuItems li:hover::after {
+  width: 50px;
+}
+
+#menuItems li a:hover {
+  color: rgb(67, 116, 250);
+}
+
+@media (min-width: 842px) {
+  .menu i {
+    display: none;
+  }
+
+  .menu {
+    width: 70%;
+  }
+
+  #menuItems {
+    display: flex;
+    position: static;
+    width: 100%;
+    background-color: black;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  #menuItems li {
+    font-size: 1.5rem;
+    margin-left: 30px;
+  }
+}

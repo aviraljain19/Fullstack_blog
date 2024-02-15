@@ -9,35 +9,41 @@
   </head>
   <body>
     <%-include("../partials/navbar.ejs")%>
-    <h2 style="text-align: center; margin: 20px">All Posts</h2>
-    <section class="container-flex">
+    <h2 style="text-align: center; margin: 20px; color: white">All Posts</h2>
+    <section class="posts">
       <%if(posts?.length<=0){%>
-      <h2>No post found</h2>
+      <h2 style="color: gray">No posts yet</h2>
       <%}else{ posts?.forEach((post)=>{%>
-      <article class="post-content">
-        <img src="<%=post?.image%>" alt="" class="post-image" />
-        <p class="post-info">
-          <span class="post-author">
-            <i class="fas fa-user"></i>
-            <a href="#"><%=post?.user?.fullname%></a>
-          </span>
-          <span class="post-date">
-            <i class="far fa-calendar-alt"></i>
-            <time datetime="2020-01-01"
-              ><%=post?.createdAt.toLocaleDateString()%></time
-            >
-          </span>
-        </p>
-        <h1 class="post-title"><%=post?.title%></h1>
-        <p class="post-body"><%=truncate(post?.description)%></p>
-        <!-- category -->
-        <div class="post-category">
-          <span>Category: <%=post?.category%></span>
-        </div>
-        <a href="/api/v1/posts/<%=post?._id%>" class="post-read-more"
-          >Continue Reading...</a
-        >
-      </article>
+      <a href="/api/v1/posts/<%=post?._id%>" class="post-read-more"
+        ><article class="postContainer">
+          <img src="<%=post?.image%>" alt="" class="post-image" />
+          <p class="post-info">
+            <span class="post-author">
+              <i class="fas fa-user"></i>
+              <a href="#"><%=post?.user?.fullname%></a>
+            </span>
+            <span class="post-date">
+              <i class="far fa-calendar-alt"></i>
+              <time datetime="2020-01-01"
+                ><%=post?.createdAt.toLocaleDateString()%></time
+              >
+            </span>
+          </p>
+          <a href="/api/v1/posts/<%=post?._id%>" class="post-read-more"
+            ><h1 class="post-title"><%=post?.title%></h1></a
+          >
+          <a href="/api/v1/posts/<%=post?._id%>" class="post-read-more"
+            ><p class="post-body"><%=truncate(post?.description)%></p></a
+          >
+          <!-- category -->
+          <div class="category">
+            <span>Category: <%=post?.category%></span>
+          </div>
+          <!-- <a href="/api/v1/posts/<%=post?._id%>" class="post-read-more"
+            >Continue Reading...</a
+          > -->
+        </article></a
+      >
       <%})%> <%}%>
     </section>
     <%-include("../partials/footer.ejs")%>

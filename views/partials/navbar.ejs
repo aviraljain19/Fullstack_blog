@@ -9,50 +9,48 @@
   href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Roboto:wght@400;500&display=swap"
   rel="stylesheet"
 />
-<link rel="stylesheet" href="/css/navbar.css" />
+<link rel="stylesheet" href="/css/nav.css" />
 
-<nav>
-  <div>
-    <img src="/images/logo.png" alt="logo" />
-  </div>
+<header>
+  <nav>
+    <ul class="logo">
+      <li>
+        <a href=""
+          ><img
+            src="/images/Screenshot_2024-01-22_224356-removebg-preview.png"
+            alt=""
+        /></a>
+      </li>
+    </ul>
+    <div class="menu">
+      <i
+        class="fa-solid fa-bars"
+        style="color: rgb(121, 157, 255)"
+        id="menuIcon"
+      ></i>
+      <i
+        class="fa-solid fa-xmark"
+        style="color: rgb(121, 157, 255)"
+        id="xIcon"
+      ></i>
+      <div>
+        <ul class="menuItems" id="menuItems">
+          <%if(userAuth){%>
+          <li><a href="/">Home</a></li>
+          <li><a href="/api/v1/posts">Posts</a></li>
+          <li><a href="/api/v1/users/profile-page">Profile</a></li>
+          <li><a href="/api/v1/posts/create-post-form">Create Post</a></li>
+          <li><a href="/api/v1/users/logout">Logout</a></li>
 
-  <ul>
-    <%if(userAuth){%>
-    <li>
-      <a href="/">Home</a>
-    </li>
-    <li>
-      <a href="/api/v1/posts">Posts</a>
-    </li>
-    <li>
-      <a href="/api/v1/users/profile-page">Profile</a>
-    </li>
-    <li>
-      <a href="/api/v1/posts/create-post-form" class="create-post-btn"
-        >New Post</a
-      >
-    </li>
-    <li>
-      <a
-        style="background-color: red; margin-top: 10px"
-        href="/api/v1/users/logout"
-        class="create-post-btn"
-        >Log Out</a
-      >
-    </li>
-    <%}else{%>
-    <li>
-      <a href="/">Home</a>
-    </li>
-    <li>
-      <a href="/api/v1/posts">Posts</a>
-    </li>
-    <li>
-      <a href="/api/v1/users/login">Login</a>
-    </li>
-    <li>
-      <a href="/api/v1/users/register">Register</a>
-    </li>
-    <%}%>
-  </ul>
-</nav>
+          <%}else{%>
+          <li><a href="/">Home</a></li>
+          <li><a href="/api/v1/posts">Posts</a></li>
+          <li><a href="/api/v1/users/login">Login</a></li>
+          <li><a href="/api/v1/users/register">SignUp</a></li>
+          <%}%>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<script src="/scripts/script.js"></script>
