@@ -28,7 +28,7 @@
       <main>
         <article class="post-details-content">
           <img src="<%=postFound?.image%>" alt="" class="post-image" />
-          <%if(postFound?.user?._id.toString() === userAuth.toString()){%>
+          <%if(postFound?.user?._id.toString() === userAuth){%>
           <div class="post-details-action">
             <a href="/api/v1/posts/get-form-update/<%=postFound?._id%>">
               <i class="fas fa-edit"></i>
@@ -105,7 +105,7 @@
             <div class="comment-body">
               <p><%=comment.message%></p>
               <!-- delete/update icon -->
-              <%if(comment?.user?._id.toString() === userAuth.toString()){%>
+              <%if(comment?.user?._id.toString() === userAuth){%>
               <div class="post-details-action">
                 <a
                   href="/api/v1/comments/<%=comment?._id%>"
