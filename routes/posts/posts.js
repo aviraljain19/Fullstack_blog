@@ -32,7 +32,7 @@ postRoutes.post("", protected, upload.single("postImg"), createPostCtrl);
 
 postRoutes.get("", fetchPostCtrl);
 
-postRoutes.get("/:id", protected, postDetailsCtrl);
+postRoutes.get("/:id", postDetailsCtrl);
 
 postRoutes.delete("/:id", protected, deletePostCtrl);
 
